@@ -1,0 +1,155 @@
+﻿@* @model IEnumerable<MVC_PRODUCT.Models.Product>
+
+<h2>Products</h2>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <span  style="color:darkred"> @ViewBag.ErrorMessage</span>
+}
+
+@if (TempData["Success"] != null)
+{
+    <p style="color:green">@TempData["Success"]</p>
+}
+
+<form asp-action="Create" method="get">
+    <button type="submit">Add Product</button>
+</form>
+
+<table border="1" cellspacing="5">
+    <thead>
+        <tr>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Price</td>
+                <td> 
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                    <form asp-action="Delete" method="post">
+                        @* <a asp-action="Delete" method="post" style="display:inline"> Delete</a> *@
+@*                         <input type="hidden" name="id" value="@item.ProductId" />
+                        <button type="submit">Delete</button>
+                    </form>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> *@ 
+
+
+@model IEnumerable<MVC_PRODUCT.Models.Product>
+<h2>Productpage</h2>
+
+@if(ViewBag.ErrorMessage != null)
+{
+    <span style="color:red">@ViewBag.ErrorMessage</span>
+}
+
+@if(TempData["Success"]!= null)
+{
+    <span style="color:green">@TempData["Success"]</span>
+}
+
+<form asp-action="Index" method="get">
+    <input type="text"
+        name="search"
+        value="@Context.Request.Query["search"]"
+placeholder="Search by name"/>
+
+    <input type="number"
+        name="minPrice"
+           value="@Context.Request.Query["minPrice"]"
+           placeholder="MinPrice"/>
+
+    <input type="number"
+        name="maxPrice"
+           value="@Context.Request.Query["maxPrice"]"
+           placeholder="MaxPrice" />
+
+           <select name="sort">
+               <option value="">SortBy</option>
+        <option value="name_desc"
+            selected="@Context.Request.Query["sort"] == "name_desc"">Name desc</option>
+            <option value="price_asc"
+                selected="@Context.Request.Query["sort"]=="price_asc"">Price asc</option>
+
+        <option value="price_desc"
+                selected="@Context.Request.Query["sort"]==" price_desc"">Price desc</option>
+      
+           </select>
+           <button type="submit">Apply</button>
+
+</form>
+
+ <form asp-action="Create" method="post">
+    <button type="submit">Add Product</button>
+
+ </form>
+ <div>
+     <table>
+         <thead>
+             <tr>
+                 <th>ProductId</th>
+                 <th>
+                     ProductName
+                 </th>
+                 <th>Price</th>
+             </tr>
+         </thead>
+
+         <tbody>
+             
+                @foreach (var item in Model)
+                {
+                    <tr>
+                    <td>@item.ProductId</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.Price</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId"> Edit</a>
+                        <form asp-action ="Delete" method="post">
+                            <input type="hidden" name="id" value="@item.ProductId"/>
+                            <button type="submit"> Delete</button>
+                        </form>
+                    </td>
+                    </tr>
+
+                }
+             
+           
+        </tbody>
+     </table>
+
+     <div>
+        @{
+            int CurrentPage = ViewBag.Page ?? 1;
+            int TotalPages=ViewBag.TotalPages ?? 1;
+        }
+
+        @for (int i = 1; i <= TotalPages; i++)
+        {
+            <a asp-action="Index"
+            asp-route-page="@i"
+            asp-route-search="@Context.Request.Query["search"]"
+               asp-route-sort="@Context.Request.Query["sort"]"
+               asp-route-minPrice="@Context.Request.Query["minPrice"]"
+               asp-route-maxPrice="@Context.Request.Query["maxPrice"]"
+               asp-route-search="@Context.Request.Query["search"]"
+                  style="margin-right:5px;
+                      font-weight:@(i == CurrentPage ? "bold" : "normal")">@i
+            </a>
+        }
+
+        
+    </div>
+ </div>

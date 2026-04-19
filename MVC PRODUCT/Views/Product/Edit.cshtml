@@ -1,0 +1,44 @@
+﻿@* @model MVC_PRODUCT.Models.Product
+<h2>Edit page</h2>
+<form asp-action-for="Edit" method="post">
+    <input type="hidden" asp-for="ProductId"/>
+
+    <div>
+        <lable asp-for="ProductName"> </lable><br />
+        <input asp-for="ProductName" />
+        <span asp-validation-for="ProductName" style="color:red"> </span>
+    </div>
+
+    <div>
+        <lable asp-for="Price"> </lable><br />
+        <input asp-for="Price" />
+        <span asp-validation-for="Price" style="color:red"> </span>
+    </div>
+    <br />
+    <button type="submit" >Update</button>
+</form>
+
+<a asp-action="Index">Back to List</a> *@
+
+@model MVC_PRODUCT.Models.Product
+
+<h2>Edit product</h2>
+<form asp-action-for="Edit" method="post">
+    <input type="hidden" asp-for="ProductId"/>
+    <div>
+        <label asp-for="ProductName"></label>
+        <input asp-for="ProductName" />
+        <span asp-validation-for="ProductName" style="color:red"></span>
+    </div>
+
+    <div>
+        <label asp-for="Price"></label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price" style="color:red"></span>
+    </div>
+    <br />
+
+    <button type="submit">Save</button>
+
+
+</form>
