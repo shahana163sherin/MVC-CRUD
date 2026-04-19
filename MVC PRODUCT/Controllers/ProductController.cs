@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿//MVC CRUD
+
+using Microsoft.AspNetCore.Mvc;
 using MVC_PRODUCT.Models;
 using MVC_PRODUCT.Services;
 
