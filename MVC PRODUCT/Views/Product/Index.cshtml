@@ -84,14 +84,14 @@ placeholder="Search by name"/>
                 selected="@Context.Request.Query["sort"]=="price_asc"">Price asc</option>
 
         <option value="price_desc"
-                selected="@Context.Request.Query["sort"]==" price_desc"">Price desc</option>
+                selected="@Context.Request.Query["sort"]=="price_desc"">Price desc</option>
       
            </select>
            <button type="submit">Apply</button>
 
 </form>
 
- <form asp-action="Create" method="post">
+ <form asp-action="Create" method="get">
     <button type="submit">Add Product</button>
 
  </form>
@@ -134,7 +134,7 @@ placeholder="Search by name"/>
      <div>
         @{
             int CurrentPage = ViewBag.Page ?? 1;
-            int TotalPages=ViewBag.TotalPages ?? 1;
+            int TotalPages=ViewBag.TotalPage ?? 1;
         }
 
         @for (int i = 1; i <= TotalPages; i++)

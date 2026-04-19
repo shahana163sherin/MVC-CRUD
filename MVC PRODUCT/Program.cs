@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using MVC_PRODUCT.Data;
 using MVC_PRODUCT.Repositories;
 using MVC_PRODUCT.Services;
 
@@ -11,8 +13,13 @@ namespace MVC_PRODUCT
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSingleton<IProductServices, ProductServices>();
-            builder.Services.AddSingleton<IProductRepositories, ProductRepositories>();
+            builder.Services.AddScoped<IProductServices, ProductServices>();
+            builder.Services.AddScoped<IProductRepositories, ProductRepositories>();
+
+            builder.Services.AddDbContext<DBContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 
